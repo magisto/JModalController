@@ -307,21 +307,21 @@ extension UIViewController : JModalDelegate {
     
     private func dismissModal(animationDuration : NSTimeInterval) {
         UIView.animateWithDuration(animationDuration, delay: 0, options: jConfig.animationOptions, animations: {
-            self.jModal.view.userInteractionEnabled = false
-            self.jModal.view.frame = self.jModalStartingRect.rect
+            self.jModal?.view?.userInteractionEnabled = false
+            self.jModal?.view?.frame = self.jModalStartingRect.rect
             //TODO: Remove forced layout
-            self.jModal.view.layoutSubviews()
-            if self.jConfig.backgroundTransform {
-                self.jPresenting.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1)
+            self.jModal?.view?.layoutSubviews()
+            if let config = self.jConfig where config.backgroundTransform {
+                self.jPresenting?.view?.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1)
             }
-            self.jPresenting.view.layoutIfNeeded()
-            self.jOverlay.backgroundColor = UIColor.clearColor()
+            self.jPresenting?.view?.layoutIfNeeded()
+            self.jOverlay?.backgroundColor = UIColor.clearColor()
             }, completion: { (_) in
-                self.jOverlay.removeFromSuperview()
+                self.jOverlay?.removeFromSuperview()
                 self.jOverlay = nil
-                self.jModal.view.removeFromSuperview()
+                self.jModal?.view?.removeFromSuperview()
                 self.jModal = nil
-                self.jPresenting.view.toggleSubviewsUserInteractionEnabled(true)
+                self.jPresenting?.view?.toggleSubviewsUserInteractionEnabled(true)
                 self.jPresenting = nil
         })
     }
